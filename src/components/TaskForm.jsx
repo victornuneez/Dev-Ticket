@@ -7,9 +7,9 @@ export const TaskForm = ({ developers, onCreateTask }) => {
             <input id="title" type="text" placeholder="Titulo de la tarea" />
             
             <select id="developersSelect">
-                {developers.map(dev => {
+                {developers.map(dev => (
                     <option value={dev}>{dev}</option>
-                })}
+                ))}
             </select>
             
             <button onClick={() => {
