@@ -16,6 +16,7 @@ export const TaskForm = ({ developers, onCreateTask }) => {
                 const title = document.getElementById('title').value;
                 const dev = document.getElementById('developersSelect').value;
                 onCreateTask(title, dev)
+                document.getElementById('title').value = '';
             }}>
                 Crear Tarea
             </button>
