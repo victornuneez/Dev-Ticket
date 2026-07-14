@@ -19,7 +19,7 @@ export const createElement = (type, props, ...children) => {
     }
 };
 
-// Esta funcion convierte los arboles de componentes a arboles de elementos HTML y texto.
+// Esta funcion ejecuta cada componente que contenga el arbol virtual y devuelve un arbol virtual de nodos de elementos y nodos de texto.
 const runComponent = (vNode) => {
     
     if(typeof vNode.type === 'function') {
@@ -35,7 +35,7 @@ const runComponent = (vNode) => {
 // Funcion reutilizable que crea recursivamente un DOM virtual con los nodos que le pases y lo devuelve
 const createDomNode = (vNode) => {
 
-    // Validacion que corta la recusividad.
+    // Validacion que corta la recusividad de la rama actual.
     if(vNode.type === 'TEXT_ELEMENT') {
         return document.createTextNode(vNode.props.nodeValue);
     }
@@ -61,8 +61,8 @@ const createDomNode = (vNode) => {
 export const mount = (vNode, container) => {
     container.innerHTML = "";
 
-    const domNode = createDomNode(vNode);
-    container.appendChild(domNode)
+    const domRootNode = createDomNode(vNode);
+    container.appendChild(domRootNode)
 };
 
 
@@ -101,7 +101,7 @@ const updateProps = (dom, oldProps = {}, newProps = {}) => {
 
 // Funcion que compara los nodos del viejo arbol virtual y el nuevo arbol virtual para que el DOM real se concilie con el nuevo arbol virtual.
 const reconcile = (parent, oldVNode, newVNode, index = 0) => {
-    const currentNode = parent.childNodes[index]; // Obtenemos el nodo real del DOM.
+    const currentNode = parent.childNodes[index]; // Obtenemos el nodo real del DOM en la posicion actual.
 
     // El nuevo nodo no existe en la posicion del viejo nodo, entonces se borra el nodo actual en el dom real en esta posicion.
     if(!newVNode) {
